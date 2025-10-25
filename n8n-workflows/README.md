@@ -499,7 +499,7 @@ Before going live:
 - https://developers.hubspot.com/
 
 ### Need Help?
-- Email: hello@heybuddydesign.com
+- Email: info@heybuddydesign.com
 - Discord: n8n Community Server
 
 ---
