@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Calculator - HeyBuddyDesign</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .calculator {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .calculator h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .option {
+            margin: 20px 0;
+        }
+
+        .option label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .option select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .result-label {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 42px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .payment-plan {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .features-list {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .features-list strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .features-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-list li {
+            padding: 5px 0;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: #667eea;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .discount-badge {
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .savings {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        @media (max-width: 600px) {
+            .calculator {
+                padding: 20px;
+            }
+
+            .price {
+                font-size: 36px;
+            }
+
+            .calculator h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>💷 Calculate Your Investment</h2>
+        <p class="subtitle">Get an instant quote for your project</p>
+
+        <div class="option">
+            <label for="projectType">What do you need?</label>
+            <select id="projectType">
+                <option value="starter">Starter Website (1-3 pages)</option>
+                <option value="business">Business Website (5 pages)</option>
+                <option value="professional">Professional Website (10 pages)</option>
+                <option value="premium">Premium Website (Unlimited pages)</option>
+                <option value="ecommerce">E-commerce Website</option>
+                <option value="chatbot-basic">Basic AI Chatbot</option>
+                <option value="chatbot-smart">Smart AI Chatbot</option>
+                <option value="chatbot-advanced">Advanced AI Agent</option>
+            </select>
+        </div>
+
+        <div class="option">
+            <label for="addons">Additional Services?</label>
+            <select id="addons">
+                <option value="0">None</option>
+                <option value="100">Logo Design (+£100)</option>
+                <option value="250">SEO Setup (+£250)</option>
+                <option value="150">Email Marketing (+£150)</option>
+                <option value="300">E-commerce (+£300)</option>
+                <option value="500">Full Package (+£500)</option>
+            </select>
+        </div>
+
+        <div class="option">
+            <label for="hosting">Include Hosting?</label>
+            <select id="hosting">
+                <option value="0">No thanks</option>
+                <option value="100">Yes - 1 Year Basic (£100)</option>
+                <option value="200">Yes - 1 Year Business (£200)</option>
+                <option value="300">Yes - 1 Year Managed (£300)</option>
+            </select>
+        </div>
+
+        <div class="result" id="result">
+            <div class="result-label">Your Total Investment</div>
+            <div class="price" id="totalPrice">£225</div>
+            <div class="discount-badge">10% New Client Discount Applied!</div>
+            <div class="payment-plan" id="paymentPlan">
+                Pay 50% deposit (£113) + 50% on completion
+            </div>
+            <a href="#contact" class="cta-button" onclick="redirectToContact()">Get Started Now</a>
+        </div>
+
+        <div class="savings" id="savings" style="display: none;">
+            <strong>💰 You Save: £<span id="savingsAmount">0</span></strong><br>
+            <small>With our new client discount!</small>
+        </div>
+
+        <div class="features-list">
+            <strong>✨ What's Included:</strong>
+            <ul id="featuresList">
+                <li>Mobile-responsive design</li>
+                <li>SEO-ready structure</li>
+                <li>Contact forms</li>
+                <li>30 days support</li>
+                <li>Free training session</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const prices = {
+            starter: 225,           // Mid-range of £150-300
+            business: 450,          // Mid-range of £300-600
+            professional: 750,      // Mid-range of £600-900
+            premium: 1050,          // Mid-range of £900-1200
+            ecommerce: 1500,        // Custom pricing
+            'chatbot-basic': 750,   // Mid-range of £500-1000
+            'chatbot-smart': 1750,  // Mid-range of £1000-2500
+            'chatbot-advanced': 3750 // Mid-range of £2500-5000
+        };
+
+        const features = {
+            starter: [
+                'Mobile-responsive design',
+                'SEO-ready structure',
+                'Contact form',
+                'Free SSL certificate',
+                '30 days support'
+            ],
+            business: [
+                'Mobile-responsive design',
+                'SEO-ready structure',
+                'Contact & booking forms',
+                'Google Maps integration',
+                'Social media integration',
+                'Free SSL certificate',
+                '60 days support',
+                'Free training session'
+            ],
+            professional: [
+                'Premium mobile-responsive design',
+                'Advanced SEO setup',
+                'Multiple contact forms',
+                'Blog setup',
+                'Google Analytics',
+                'Social media integration',
+                'Newsletter signup',
+                'Free SSL certificate',
+                '90 days support',
+                'Free training & documentation'
+            ],
+            premium: [
+                'Premium custom design',
+                'Full SEO optimization',
+                'Advanced forms & automation',
+                'Blog & news section',
+                'Analytics dashboard',
+                'Social media integration',
+                'Newsletter system',
+                'Member area (optional)',
+                'Free SSL certificate',
+                '120 days support',
+                'Training & full documentation',
+                'Monthly maintenance included'
+            ],
+            ecommerce: [
+                'Full e-commerce functionality',
+                'Product catalog',
+                'Shopping cart & checkout',
+                'Payment gateway integration',
+                'Inventory management',
+                'Order management system',
+                'Customer accounts',
+                'SEO optimization',
+                'Free SSL certificate',
+                '120 days support',
+                'Full training'
+            ],
+            'chatbot-basic': [
+                'Basic AI chatbot',
+                'Pre-configured responses',
+                'Website integration',
+                'Lead capture',
+                '30 days support'
+            ],
+            'chatbot-smart': [
+                'Smart AI chatbot',
+                'Custom training on your data',
+                'Website & social media integration',
+                'Advanced lead capture',
+                'Analytics dashboard',
+                '60 days support',
+                'Monthly optimization'
+            ],
+            'chatbot-advanced': [
+                'Advanced AI agent',
+                'Custom AI model training',
+                'Multi-platform integration',
+                'CRM integration',
+                'Advanced analytics',
+                'Workflow automation',
+                '90 days support',
+                'Monthly optimization & updates'
+            ]
+        };
+
+        function calculatePrice() {
+            const projectType = document.getElementById('projectType').value;
+            const addons = parseInt(document.getElementById('addons').value);
+            const hosting = parseInt(document.getElementById('hosting').value);
+
+            const basePrice = prices[projectType];
+            const total = basePrice + addons + hosting;
+
+            // Apply 10% discount
+            const discount = total * 0.10;
+            const finalPrice = total - discount;
+
+            // Update price display
+            document.getElementById('totalPrice').textContent = '£' + Math.round(finalPrice);
+
+            // Update savings
+            if (discount > 0) {
+                document.getElementById('savings').style.display = 'block';
+                document.getElementById('savingsAmount').textContent = Math.round(discount);
+            }
+
+            // Update payment plan text
+            let paymentText = '';
+            if (finalPrice >= 600) {
+                const monthly = Math.round(finalPrice / 4);
+                paymentText = `Or pay £${monthly}/month for 4 months (interest-free)`;
+            } else {
+                const deposit = Math.round(finalPrice / 2);
+                paymentText = `Pay 50% deposit (£${deposit}) + 50% on completion`;
+            }
+            document.getElementById('paymentPlan').textContent = paymentText;
+
+            // Update features list
+            const featuresList = document.getElementById('featuresList');
+            featuresList.innerHTML = '';
+            features[projectType].forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                featuresList.appendChild(li);
+            });
+        }
+
+        function redirectToContact() {
+            const projectType = document.getElementById('projectType').value;
+            const price = document.getElementById('totalPrice').textContent;
+
+            // You can redirect to your contact form with pre-filled data
+            window.location.href = 'contact-form-uk.html?project=' + projectType + '&price=' + price;
+        }
+
+        // Update on change
+        document.getElementById('projectType').addEventListener('change', calculatePrice);
+        document.getElementById('addons').addEventListener('change', calculatePrice);
+        document.getElementById('hosting').addEventListener('change', calculatePrice);
+
+        // Initial calculation
+        calculatePrice();
+    </script>
+</body>
+</html>

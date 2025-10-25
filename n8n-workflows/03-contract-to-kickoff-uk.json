@@ -1,0 +1,39 @@
+{
+  "name": "Contract Signed to Project Kickoff (UK)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "docusign-signed",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-docusign",
+      "name": "Webhook - DocuSign Contract Signed",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 400]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Parse DocuSign webhook\nconst data = $input.item.json.data;\nconst envelope = data.envelopeSummary;\n\n// Extract signer info\nconst recipient = envelope.recipients.signers[0];\n\n// Extract custom fields (project details)\nconst customFields = envelope.customFields?.textCustomFields || [];\nconst projectName = customFields.find(f => f.name === 'ProjectName')?.value || 'New Project';\nconst projectType = customFields.find(f => f.name === 'ProjectType')?.value || 'Web Design';\nconst totalAmount = customFields.find(f => f.name === 'TotalAmount')?.value || '0';\nconst depositAmount = customFields.find(f => f.name === 'DepositAmount')?.value || '0';\nconst paymentPlan = customFields.find(f => f.name === 'PaymentPlan')?.value || 'Full Payment';\n\n// Calculate payment plan details\nconst total = parseFloat(totalAmount);\nconst deposit = parseFloat(depositAmount);\nlet monthlyAmount = 0;\nlet numberOfPayments = 1;\n\nif (paymentPlan === 'Monthly' && total >= 600) {\n  // Monthly payment plan\n  if (total <= 900) {\n    numberOfPayments = 4;\n  } else if (total <= 1200) {\n    numberOfPayments = 5;\n  } else {\n    numberOfPayments = 6;\n  }\n  monthlyAmount = total / numberOfPayments;\n}\n\nreturn {\n  json: {\n    envelopeId: envelope.envelopeId,\n    status: envelope.status,\n    completedDate: envelope.completedDateTime,\n    clientName: recipient.name,\n    clientEmail: recipient.email,\n    projectName: projectName,\n    projectType: projectType,\n    totalAmount: total,\n    depositAmount: deposit,\n    paymentPlan: paymentPlan,\n    monthlyAmount: monthlyAmount,\n    numberOfPayments: numberOfPayments,\n    contractPdf: envelope.documentsCombinedUri,\n    currency: 'GBP',\n    country: 'UK'\n  }\n};"
+      },
+      "id": "parse-docusign",
+      "name": "Parse DocuSign Data (UK)",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [450, 400]
+    }
+  ],
+  "connections": {
+    "Webhook - DocuSign Contract Signed": {
+      "main": [[{ "node": "Parse DocuSign Data (UK)", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "instanceId": "your-instance-id"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "name": "Lead Capture to CRM (UK Pricing)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "contact-form",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-contact-form",
+      "name": "Webhook - Contact Form",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "contact-form-webhook"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Extract form data\nconst formData = $input.item.json.body;\n\n// Validate email\nconst emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\nconst isValidEmail = emailRegex.test(formData.email);\n\n// Validate phone (UK format)\nconst phoneRegex = /^(\\+44\\s?7\\d{3}|\\(?07\\d{3}\\)?)\\s?\\d{3}\\s?\\d{3}$|^[\\d\\s\\-\\+\\(\\)]+$/;\nconst isValidPhone = formData.phone ? phoneRegex.test(formData.phone) : true;\n\n// Clean and structure data\nreturn {\n  json: {\n    name: formData.name?.trim(),\n    email: formData.email?.toLowerCase().trim(),\n    phone: formData.phone?.trim(),\n    company: formData.company?.trim(),\n    message: formData.message?.trim(),\n    service: formData.service || 'Not specified',\n    budget: formData.budget || 'Not specified',\n    timeline: formData.timeline || 'Not specified',\n    source: formData.source || 'Website',\n    isValidEmail: isValidEmail,\n    isValidPhone: isValidPhone,\n    submittedAt: new Date().toISOString(),\n    leadScore: 0,\n    country: 'UK'\n  }\n};"
+      },
+      "id": "validate-data",
+      "name": "Validate & Clean Data",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.isValidEmail}}",
+              "value2": true
+            },
+            {
+              "value1": "={{$json.isValidPhone}}",
+              "value2": true
+            }
+          ]
+        },
+        "combineOperation": "all"
+      },
+      "id": "check-validation",
+      "name": "IF Valid Data",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Calculate lead score - UK Pricing\nconst data = $input.item.json;\nlet score = 0;\n\n// Budget scoring - UK Prices\nif (data.budget) {\n  const budget = data.budget.toLowerCase();\n  \n  // £5,000+ budget\n  if (budget.includes('5000') || budget.includes('5,000') || budget.includes('£5k+') || budget.includes('5k+')) {\n    score += 30;\n  }\n  // £2,000-£5,000 budget\n  else if (budget.includes('2000-5000') || budget.includes('2,000-5,000') || budget.includes('2k-5k')) {\n    score += 25;\n  }\n  // £1,000-£2,000 budget\n  else if (budget.includes('1000-2000') || budget.includes('1,000-2,000') || budget.includes('1k-2k')) {\n    score += 20;\n  }\n  // £500-£1,000 budget\n  else if (budget.includes('500-1000') || budget.includes('500-1,000') || budget.includes('500')) {\n    score += 15;\n  }\n  // £200-£500 budget\n  else if (budget.includes('200-500') || budget.includes('200')) {\n    score += 10;\n  }\n  // Under £200\n  else if (budget.includes('under 200') || budget.includes('<200') || budget.includes('150')) {\n    score += 5;\n  }\n}\n\n// Timeline scoring (urgency)\nif (data.timeline) {\n  const timeline = data.timeline.toLowerCase();\n  if (timeline.includes('asap') || timeline.includes('urgent') || timeline.includes('immediately') || timeline.includes('this week')) {\n    score += 25;\n  }\n  else if (timeline.includes('1 month') || timeline.includes('30 days') || timeline.includes('next month')) {\n    score += 20;\n  }\n  else if (timeline.includes('2-3 months') || timeline.includes('2 months')) {\n    score += 15;\n  }\n  else if (timeline.includes('3-6 months')) {\n    score += 10;\n  }\n  else if (timeline.includes('flexible') || timeline.includes('no rush')) {\n    score += 5;\n  }\n}\n\n// Service type scoring\nif (data.service) {\n  const service = data.service.toLowerCase();\n  if (service.includes('ai') || service.includes('chatbot') || service.includes('automation')) {\n    score += 20;\n  }\n  else if (service.includes('premium') || service.includes('professional') || service.includes('e-commerce')) {\n    score += 15;\n  }\n  else if (service.includes('business') || service.includes('web design')) {\n    score += 10;\n  }\n  else if (service.includes('starter') || service.includes('basic')) {\n    score += 5;\n  }\n}\n\n// Company field present (serious inquiry)\nif (data.company && data.company.length > 0) {\n  score += 10;\n}\n\n// Message length (detailed inquiry shows serious interest)\nif (data.message && data.message.length > 150) {\n  score += 10;\n}\nelse if (data.message && data.message.length > 75) {\n  score += 5;\n}\n\n// Phone provided (easier to close)\nif (data.phone && data.phone.length > 0) {\n  score += 5;\n}\n\n// Determine priority based on UK pricing\nlet priority = 'Low';\nlet category = 'Cold Lead';\nlet recommendedAction = 'Send brochure and add to nurture sequence';\n\nif (score >= 70) {\n  priority = 'High';\n  category = 'Hot Lead - £1,000+';\n  recommendedAction = 'URGENT: Call within 2 hours + Send calendar link';\n} else if (score >= 50) {\n  priority = 'Medium-High';\n  category = 'Warm Lead - £500-£1,000';\n  recommendedAction = 'Call within 24 hours + Send portfolio';\n} else if (score >= 30) {\n  priority = 'Medium';\n  category = 'Warm Lead - £200-£500';\n  recommendedAction = 'Send email with pricing + Book call';\n} else {\n  priority = 'Low';\n  category = 'Cold Lead - Under £200';\n  recommendedAction = 'Add to email nurture sequence';\n}\n\nreturn {\n  json: {\n    ...data,\n    leadScore: score,\n    priority: priority,\n    category: category,\n    recommendedAction: recommendedAction\n  }\n};"
+      },
+      "id": "calculate-score",
+      "name": "Calculate Lead Score (UK)",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [850, 250]
+    }
+  ],
+  "connections": {
+    "Webhook - Contact Form": {
+      "main": [[{ "node": "Validate & Clean Data", "type": "main", "index": 0 }]]
+    },
+    "Validate & Clean Data": {
+      "main": [[{ "node": "IF Valid Data", "type": "main", "index": 0 }]]
+    },
+    "IF Valid Data": {
+      "main": [
+        [{ "node": "Calculate Lead Score (UK)", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "instanceId": "your-instance-id"
+  }
+}

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Your Free Quote - HeyBuddyDesign</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .price-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .features {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            padding: 8px 0;
+            color: #555;
+        }
+
+        .features li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+            display: none;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #dc3545;
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .required {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Get Your Free Quote</h1>
+            <p>Professional websites that won't break the bank</p>
+            <div class="price-badge">From £150 • Payment Plans Available</div>
+        </div>
+
+        <div class="features">
+            <ul>
+                <li>Free consultation & quote within 24 hours</li>
+                <li>10% discount for new clients</li>
+                <li>Flexible payment plans (no interest!)</li>
+                <li>UK-based support • 2-6 week turnaround</li>
+            </ul>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <strong>Thank you!</strong> We've received your enquiry and will get back to you within 24 hours. Check your email for pricing details!
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            <strong>Oops!</strong> Something went wrong. Please check your details and try again.
+        </div>
+
+        <div class="loading" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p style="margin-top: 15px; color: #667eea;">Sending your enquiry...</p>
+        </div>
+
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Your Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required placeholder="John Smith">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="john@example.com">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="07XXX XXXXXX or +44 7XXX XXXXXX">
+            </div>
+
+            <div class="form-group">
+                <label for="company">Company/Business Name</label>
+                <input type="text" id="company" name="company" placeholder="Your Business Ltd">
+            </div>
+
+            <div class="form-group">
+                <label for="service">What service do you need? <span class="required">*</span></label>
+                <select id="service" name="service" required>
+                    <option value="">-- Please Select --</option>
+                    <option value="Starter Website (£150-£300)">Starter Website (£150-£300)</option>
+                    <option value="Business Website (£300-£600)">Business Website (£300-£600)</option>
+                    <option value="Professional Website (£600-£900)">Professional Website (£600-£900)</option>
+                    <option value="Premium Website (£900-£1,200)">Premium Website (£900-£1,200)</option>
+                    <option value="E-commerce Website">E-commerce Website</option>
+                    <option value="AI Chatbot (from £500)">AI Chatbot (from £500)</option>
+                    <option value="Website Hosting (from £10/mo)">Website Hosting (from £10/mo)</option>
+                    <option value="Website Migration">Website Migration</option>
+                    <option value="SEO Services">SEO Services</option>
+                    <option value="Not sure - Need advice">Not sure - Need advice</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="budget">Your Budget <span class="required">*</span></label>
+                <select id="budget" name="budget" required>
+                    <option value="">-- Please Select --</option>
+                    <option value="Under £200">Under £200</option>
+                    <option value="£200-£500">£200-£500</option>
+                    <option value="£500-£1,000">£500-£1,000</option>
+                    <option value="£1,000-£2,000">£1,000-£2,000</option>
+                    <option value="£2,000-£5,000">£2,000-£5,000</option>
+                    <option value="£5,000+">£5,000+</option>
+                    <option value="Not sure yet">Not sure yet</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="timeline">When do you need this? <span class="required">*</span></label>
+                <select id="timeline" name="timeline" required>
+                    <option value="">-- Please Select --</option>
+                    <option value="ASAP - Urgent">ASAP - Urgent</option>
+                    <option value="Within 1 month">Within 1 month</option>
+                    <option value="1-2 months">1-2 months</option>
+                    <option value="2-3 months">2-3 months</option>
+                    <option value="3-6 months">3-6 months</option>
+                    <option value="Just exploring options">Just exploring options</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Tell us about your project <span class="required">*</span></label>
+                <textarea id="message" name="message" required placeholder="What do you want to achieve? Any specific features you need? Tell us about your business..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Get My Free Quote</button>
+        </form>
+
+        <p style="text-align: center; color: #666; font-size: 12px; margin-top: 20px;">
+            By submitting this form, you agree to our Privacy Policy. We typically respond within 24 hours.
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Hide messages
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+
+            // Show loading
+            document.getElementById('loadingSpinner').style.display = 'block';
+            this.style.display = 'none';
+
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                company: document.getElementById('company').value,
+                service: document.getElementById('service').value,
+                budget: document.getElementById('budget').value,
+                timeline: document.getElementById('timeline').value,
+                message: document.getElementById('message').value,
+                source: 'Website Contact Form',
+                country: 'UK'
+            };
+
+            try {
+                // REPLACE WITH YOUR n8n WEBHOOK URL
+                const response = await fetch('https://your-n8n-domain.com/webhook/contact-form', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                // Hide loading
+                document.getElementById('loadingSpinner').style.display = 'none';
+
+                if (response.ok && result.success) {
+                    // Show success message
+                    document.getElementById('successMessage').style.display = 'block';
+                    // Reset form
+                    this.reset();
+
+                    // Scroll to success message
+                    document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    // Show error
+                    document.getElementById('errorMessage').style.display = 'block';
+                    this.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'block';
+                this.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
