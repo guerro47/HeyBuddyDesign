@@ -383,8 +383,125 @@
         .service-card p {
             color: #666;
             line-height: 1.6;
+            margin-bottom: 1rem;
         }
-        
+
+        .price-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px dashed var(--border);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 6rem 5%;
+            background: var(--white);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border: 3px solid var(--text);
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px var(--green);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 10px 10px 0 var(--green);
+        }
+
+        .pricing-badge {
+            background: var(--yellow);
+            color: var(--text);
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .pricing-badge.popular {
+            background: var(--green);
+        }
+
+        .pricing-card h3 {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-price {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--green);
+            margin: 1.5rem 0;
+        }
+
+        .pricing-price small {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+            padding: 0;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            color: #666;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+
+        .payment-plan-badge {
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+            color: #666;
+            border-left: 3px solid var(--green);
+        }
+
+        .payment-plan-badge strong {
+            color: var(--text);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
         /* Features Section */
         .features {
             padding: 6rem 5%;
@@ -898,6 +1015,7 @@
         <div class="logo">heybuddydesign</div>
         <nav>
             <a href="#services">services</a>
+            <a href="#pricing">pricing</a>
             <a href="#contact">contact</a>
             <a href="#booking">book a call</a>
         </nav>
@@ -908,8 +1026,11 @@
             Your <span class="highlight">Digital</span><br>
             <span class="yellow-highlight">Buddy</span> in the Cloud
         </h1>
-        <p>We build websites, host dreams, and deploy AI agents that actually work. Welcome to the future, retro style.</p>
-        <a href="#contact" class="cta-button">Get Started</a>
+        <p>Professional websites from £150. Payment plans available. No hidden fees, just honest pricing.</p>
+        <div style="margin-top: 2rem;">
+            <a href="#pricing" class="cta-button">View Pricing</a>
+            <a href="#contact" class="cta-button" style="background: var(--white); color: var(--green); margin-left: 1rem;">Get Started</a>
+        </div>
     </section>
     
     <section id="services" class="services">
@@ -919,40 +1040,148 @@
                 <div class="service-icon">🌐</div>
                 <h3>Web Design</h3>
                 <p>Clean, modern websites that don't suck. We make pixels dance and users happy.</p>
+                <div class="price-tag">From £150</div>
             </div>
-            
+
             <div class="service-card">
                 <div class="service-icon">☁️</div>
                 <h3>Web Hosting</h3>
                 <p>Lightning-fast hosting with 99.9% uptime. Your site deserves a cozy home in the cloud.</p>
+                <div class="price-tag">From £10/mo</div>
             </div>
-            
+
             <div class="service-card">
                 <div class="service-icon">🤖</div>
                 <h3>AI Agents</h3>
                 <p>Intelligent bots that handle customer service, automate tasks, and make your life easier.</p>
+                <div class="price-tag">From £500</div>
             </div>
-            
+
             <div class="service-card">
                 <div class="service-icon">⚡</div>
                 <h3>AutoBot Systems</h3>
                 <p>Automation solutions that work while you sleep. Set it, forget it, profit.</p>
+                <div class="price-tag">From £750</div>
             </div>
-            
+
             <div class="service-card">
                 <div class="service-icon">🎨</div>
                 <h3>AI Design Tools</h3>
                 <p>Cutting-edge AI-powered design tools for faster, smarter creative workflows.</p>
+                <div class="price-tag">From £300</div>
             </div>
-            
+
             <div class="service-card">
                 <div class="service-icon">📈</div>
                 <h3>SEO & Analytics</h3>
                 <p>Get found on Google. Track everything. Optimize relentlessly. Grow exponentially.</p>
+                <div class="price-tag">From £250</div>
             </div>
         </div>
     </section>
-    
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <h2 class="section-title">affordable pricing</h2>
+        <p style="text-align: center; max-width: 600px; margin: 0 auto 2rem; color: #666; font-size: 1.1rem;">
+            Professional websites that won't break the bank. Payment plans available on all packages over £600.
+        </p>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <span class="pricing-badge">Starter</span>
+                <h3>Starter Website</h3>
+                <div class="pricing-price">£150-£300</div>
+                <p style="color: #666; margin-bottom: 1.5rem;">Perfect for personal sites & portfolios</p>
+                <ul class="pricing-features">
+                    <li>1-3 page website</li>
+                    <li>Mobile responsive</li>
+                    <li>Contact form</li>
+                    <li>Basic SEO setup</li>
+                    <li>Free SSL certificate</li>
+                    <li>30 days support</li>
+                </ul>
+                <div class="payment-plan-badge">
+                    <strong>Payment:</strong>
+                    50% deposit + 50% on completion
+                </div>
+                <a href="#contact" class="cta-button" style="width: 100%;">Get Started</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <span class="pricing-badge popular">Most Popular</span>
+                <h3>Business Website</h3>
+                <div class="pricing-price">£300-£600</div>
+                <p style="color: #666; margin-bottom: 1.5rem;">Great for small businesses</p>
+                <ul class="pricing-features">
+                    <li>Up to 5 pages</li>
+                    <li>Premium design</li>
+                    <li>Multiple forms</li>
+                    <li>Google Maps integration</li>
+                    <li>Social media integration</li>
+                    <li>Advanced SEO</li>
+                    <li>60 days support</li>
+                </ul>
+                <div class="payment-plan-badge">
+                    <strong>Payment:</strong>
+                    50% deposit + 50% on completion
+                </div>
+                <a href="#contact" class="cta-button" style="width: 100%;">Get Started</a>
+            </div>
+
+            <div class="pricing-card">
+                <span class="pricing-badge">Professional</span>
+                <h3>Professional Website</h3>
+                <div class="pricing-price">£600-£900</div>
+                <p style="color: #666; margin-bottom: 1.5rem;">For growing businesses</p>
+                <ul class="pricing-features">
+                    <li>Up to 10 pages</li>
+                    <li>Custom design</li>
+                    <li>Blog setup</li>
+                    <li>E-commerce ready</li>
+                    <li>Analytics dashboard</li>
+                    <li>Newsletter integration</li>
+                    <li>90 days support</li>
+                </ul>
+                <div class="payment-plan-badge">
+                    <strong>Payment Plans:</strong>
+                    4 monthly payments (interest-free)
+                </div>
+                <a href="#contact" class="cta-button" style="width: 100%;">Get Started</a>
+            </div>
+
+            <div class="pricing-card">
+                <span class="pricing-badge">Premium</span>
+                <h3>Premium Website</h3>
+                <div class="pricing-price">£900-£1,200</div>
+                <p style="color: #666; margin-bottom: 1.5rem;">Full-featured enterprise solution</p>
+                <ul class="pricing-features">
+                    <li>Unlimited pages</li>
+                    <li>Premium custom design</li>
+                    <li>Full e-commerce</li>
+                    <li>Member areas</li>
+                    <li>Advanced features</li>
+                    <li>Priority support</li>
+                    <li>120 days support</li>
+                </ul>
+                <div class="payment-plan-badge">
+                    <strong>Payment Plans:</strong>
+                    5-6 monthly payments (interest-free)
+                </div>
+                <a href="#contact" class="cta-button" style="width: 100%;">Get Started</a>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--bg); border-radius: 10px; max-width: 800px; margin-left: auto; margin-right: auto; margin-top: 3rem;">
+            <h3 style="font-family: 'Space Mono', monospace; color: var(--green); margin-bottom: 1rem;">Special Offers</h3>
+            <p style="color: #666; font-size: 1.1rem; line-height: 1.8;">
+                <strong>10% OFF</strong> for new clients • <strong>15% OFF</strong> for students & charities<br>
+                <strong>FREE hosting</strong> for 1 year with annual plans • Payment plans available on all packages over £600<br>
+                <strong>No interest • No credit checks • Cancel protection</strong>
+            </p>
+        </div>
+    </section>
+
     <section id="features" class="features">
         <h2 class="section-title">why choose us</h2>
         <div class="features-grid">
@@ -1004,19 +1233,50 @@
                         <label>service</label>
                         <select id="service" required>
                             <option value="">Select a service...</option>
-                            <option value="web-design">Web Design</option>
-                            <option value="hosting">Web Hosting</option>
-                            <option value="ai-agents">AI Agents</option>
-                            <option value="autobot">AutoBot Systems</option>
-                            <option value="ecommerce">E-commerce</option>
-                            <option value="other">Other</option>
+                            <option value="Starter Website (£150-£300)">Starter Website (£150-£300)</option>
+                            <option value="Business Website (£300-£600)">Business Website (£300-£600)</option>
+                            <option value="Professional Website (£600-£900)">Professional Website (£600-£900)</option>
+                            <option value="Premium Website (£900-£1,200)">Premium Website (£900-£1,200)</option>
+                            <option value="E-commerce Website">E-commerce Website</option>
+                            <option value="AI Chatbot (from £500)">AI Chatbot (from £500)</option>
+                            <option value="Website Hosting (from £10/mo)">Website Hosting (from £10/mo)</option>
+                            <option value="SEO Services (from £250)">SEO Services (from £250)</option>
+                            <option value="Not sure - Need advice">Not sure - Need advice</option>
                         </select>
                     </div>
                 </div>
-                
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>budget</label>
+                        <select id="budget" required>
+                            <option value="">Select your budget...</option>
+                            <option value="Under £200">Under £200</option>
+                            <option value="£200-£500">£200-£500</option>
+                            <option value="£500-£1,000">£500-£1,000</option>
+                            <option value="£1,000-£2,000">£1,000-£2,000</option>
+                            <option value="£2,000-£5,000">£2,000-£5,000</option>
+                            <option value="£5,000+">£5,000+</option>
+                            <option value="Not sure yet">Not sure yet</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>timeline</label>
+                        <select id="timeline" required>
+                            <option value="">When do you need this?</option>
+                            <option value="ASAP - Urgent">ASAP - Urgent</option>
+                            <option value="Within 1 month">Within 1 month</option>
+                            <option value="1-2 months">1-2 months</option>
+                            <option value="2-3 months">2-3 months</option>
+                            <option value="3-6 months">3-6 months</option>
+                            <option value="Just exploring options">Just exploring options</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label>project details</label>
-                    <textarea id="message" required></textarea>
+                    <textarea id="message" required placeholder="Tell us about your project, any specific features you need, and what you want to achieve..."></textarea>
                 </div>
                 
                 <button type="submit" class="submit-button">Send Message</button>
@@ -1236,7 +1496,11 @@
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 service: document.getElementById('service').value,
-                message: document.getElementById('message').value
+                budget: document.getElementById('budget').value,
+                timeline: document.getElementById('timeline').value,
+                message: document.getElementById('message').value,
+                source: 'Website Contact Form',
+                country: 'UK'
             };
             
             // Show success message
@@ -1287,12 +1551,25 @@
                 typingIndicator.classList.remove('active');
                 
                 const responses = {
-                    'pricing': 'Our pricing starts at $999 for basic websites and goes up based on features. Want a custom quote?',
-                    'services': 'We offer web design, hosting, AI agents, automation, SEO, and more! Which one interests you?',
-                    'contact': 'You can reach us at hello@heybuddydesign.com or use the contact form above!',
-                    'timeline': 'Most projects take 2-4 weeks. Rush jobs can be done in 1 week with priority service!',
-                    'ai': 'Yes! We specialize in AI chatbots, automation, and intelligent agents. Want to see a demo?',
-                    'hosting': 'We offer managed hosting with 99.9% uptime, SSL, backups, and 24/7 support starting at $29/month.'
+                    'pricing': 'Our websites start from just £150! We have 4 packages: Starter (£150-300), Business (£300-600), Professional (£600-900), and Premium (£900-1,200). Payment plans available on all packages over £600. Want to see the full breakdown?',
+                    'price': 'Our websites start from just £150! We have 4 packages: Starter (£150-300), Business (£300-600), Professional (£600-900), and Premium (£900-1,200). Payment plans available on all packages over £600. Want to see the full breakdown?',
+                    'cost': 'Our websites start from just £150! We offer affordable pricing with flexible payment plans. No interest, no credit checks! Want to calculate your exact price?',
+                    'cheap': 'Yes! We offer affordable professional websites from £150. Payment plans available from £600 onwards. No hidden fees, just honest pricing!',
+                    'payment': 'We offer flexible payment plans! For projects under £600: 50/50 split. For £600-900: 4 monthly payments. For £900+: 5-6 monthly payments. All interest-free with no credit checks!',
+                    'plan': 'We offer flexible payment plans! For projects under £600: 50/50 split. For £600-900: 4 monthly payments. For £900+: 5-6 monthly payments. All interest-free with no credit checks!',
+                    'discount': 'We offer 10% OFF for new clients and 15% OFF for students & charities! Plus FREE hosting for 1 year with annual plans. Great value!',
+                    'services': 'We offer web design (from £150), hosting (from £10/mo), AI agents (from £500), automation (from £750), SEO (from £250), and more! Which one interests you?',
+                    'contact': 'You can reach us at hello@heybuddydesign.com or use the contact form above! We respond within 24 hours.',
+                    'timeline': 'Most websites are completed in 2-6 weeks. Rush service available if you need it faster! When do you need yours by?',
+                    'ai': 'Yes! We specialize in AI chatbots from £500. Basic (£500-1,000), Smart (£1,000-2,500), Advanced (£2,500-5,000). They can handle customer service, bookings, and automate tasks. Interested?',
+                    'chatbot': 'Our AI chatbots start from £500! They can handle customer service, answer FAQs, capture leads, and work 24/7. Want to see a demo?',
+                    'hosting': 'We offer UK-based hosting from £10/month with 99.9% uptime, SSL, backups, and 24/7 support. FREE for 1 year with annual website plans!',
+                    'starter': 'Our Starter package (£150-300) is perfect for personal sites & portfolios. Includes 1-3 pages, mobile responsive, contact form, basic SEO, and 30 days support. Want to get started?',
+                    'business': 'Our Business package (£300-600) is great for small businesses. Includes up to 5 pages, premium design, multiple forms, Google Maps, social media, advanced SEO, and 60 days support. Sound good?',
+                    'professional': 'Our Professional package (£600-900) is perfect for growing businesses. Includes up to 10 pages, custom design, blog, e-commerce ready, analytics, newsletter, and 90 days support. Plus 4 monthly payments available!',
+                    'premium': 'Our Premium package (£900-1,200) is our full-featured solution. Unlimited pages, premium custom design, full e-commerce, member areas, advanced features, priority support, and 120 days support. 5-6 monthly payments available!',
+                    'student': 'Great news! We offer 15% discount for students and charities on all our packages. Just mention it when you contact us!',
+                    'charity': 'Wonderful! We offer 15% discount for charities on all our packages. Just mention it when you contact us!'
                 };
                 
                 let response = 'Great question! I can help you with information about our services, pricing, timelines, or anything else. What would you like to know?';
@@ -1331,7 +1608,7 @@
         setTimeout(() => {
             const quickQuestions = document.createElement('div');
             quickQuestions.className = 'chat-message bot';
-            quickQuestions.innerHTML = 'Quick questions I can answer:<br>• Pricing<br>• Services<br>• Timeline<br>• AI Solutions<br>• Hosting';
+            quickQuestions.innerHTML = 'Quick questions I can answer:<br>• Pricing (from £150!)<br>• Payment Plans<br>• Services<br>• Timeline<br>• Discounts<br>• AI Solutions';
             document.getElementById('chatMessages').appendChild(quickQuestions);
         }, 2000);
     </script>
