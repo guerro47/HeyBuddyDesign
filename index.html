@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>heybuddydesign - Your Digital Buddy</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --white: #ffffff;
+            --green: #00ff88;
+            --dark-green: #00cc6d;
+            --yellow: #ffeb3b;
+            --bg: #fafafa;
+            --text: #1a1a1a;
+            --border: #e0e0e0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Retro Grid Background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        /* Header */
+        header {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--green);
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            text-transform: lowercase;
+            position: relative;
+        }
+        
+        .logo::before {
+            content: '>';
+            color: var(--green);
+            margin-right: 8px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            font-family: 'Space Mono', monospace;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--green);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 8rem 5% 4rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+        
+        .hero .highlight {
+            background: var(--green);
+            padding: 0.2rem 0.5rem;
+            display: inline-block;
+            transform: rotate(-1deg);
+        }
+        
+        .hero .yellow-highlight {
+            background: var(--yellow);
+            padding: 0.2rem 0.5rem;
+            display: inline-block;
+            transform: rotate(1deg);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            color: #666;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--green);
+            color: var(--text);
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            border: 3px solid var(--text);
+            box-shadow: 6px 6px 0 var(--text);
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            box-shadow: 8px 8px 0 var(--text);
+            transform: translate(-2px, -2px);
+        }
+        
+        .cta-button:active {
+            box-shadow: 3px 3px 0 var(--text);
+            transform: translate(3px, 3px);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 6rem 5%;
+            background: var(--bg);
+        }
+        
+        .section-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::before {
+            content: '// ';
+            color: var(--green);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border: 2px solid var(--text);
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: var(--yellow);
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 0 var(--green);
+        }
+        
+        .service-card:hover::before {
+            background: var(--green);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card h3 {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg);
+            border: 2px dashed var(--green);
+            transition: all 0.3s;
+        }
+        
+        .feature:hover {
+            background: var(--green);
+            border-style: solid;
+        }
+        
+        .feature-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--green);
+            transition: all 0.3s;
+        }
+        
+        .feature:hover .feature-number {
+            color: var(--white);
+        }
+        
+        .feature h3 {
+            font-family: 'Space Mono', monospace;
+            margin: 1rem 0;
+        }
+        
+        /* Contact Form Section */
+        .contact-section {
+            padding: 6rem 5%;
+            background: var(--bg);
+        }
+        
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 3rem;
+            border: 3px solid var(--text);
+            box-shadow: 10px 10px 0 var(--green);
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-family: 'Space Mono', monospace;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .form-group label::before {
+            content: '> ';
+            color: var(--green);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--white);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--green);
+            box-shadow: 4px 4px 0 var(--green);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--green);
+            color: var(--text);
+            border: 3px solid var(--text);
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 6px 6px 0 var(--text);
+        }
+        
+        .submit-button:hover {
+            box-shadow: 8px 8px 0 var(--text);
+            transform: translate(-2px, -2px);
+        }
+        
+        .submit-button:active {
+            box-shadow: 3px 3px 0 var(--text);
+            transform: translate(3px, 3px);
+        }
+        
+        /* Booking Section */
+        .booking-section {
+            padding: 6rem 5%;
+        }
+        
+        .booking-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .calendar-container {
+            background: var(--white);
+            padding: 2rem;
+            border: 3px solid var(--text);
+            box-shadow: 8px 8px 0 var(--yellow);
+        }
+        
+        .calendar-header {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .calendar-nav {
+            background: var(--green);
+            border: 2px solid var(--text);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Space Mono', monospace;
+        }
+        
+        .calendar-day:hover {
+            background: var(--green);
+            border-color: var(--text);
+        }
+        
+        .calendar-day.selected {
+            background: var(--yellow);
+            border: 2px solid var(--text);
+        }
+        
+        .calendar-day.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .calendar-day.disabled:hover {
+            background: transparent;
+        }
+        
+        .time-slots {
+            background: var(--white);
+            padding: 2rem;
+            border: 3px solid var(--text);
+            box-shadow: 8px 8px 0 var(--green);
+        }
+        
+        .time-slot {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid var(--text);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Space Mono', monospace;
+            text-align: center;
+        }
+        
+        .time-slot:hover {
+            background: var(--green);
+        }
+        
+        .time-slot.selected {
+            background: var(--yellow);
+            border-width: 3px;
+        }
+        
+        .time-slot.unavailable {
+            opacity: 0.3;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+        
+        /* AI Chatbot */
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--green);
+            border: 3px solid var(--text);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 var(--text);
+            transition: all 0.3s;
+            z-index: 1000;
+            font-size: 1.8rem;
+        }
+        
+        .chatbot-toggle:hover {
+            box-shadow: 6px 6px 0 var(--text);
+            transform: translate(-2px, -2px);
+        }
+        
+        .chatbot-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 380px;
+            height: 500px;
+            background: var(--white);
+            border: 3px solid var(--text);
+            box-shadow: 10px 10px 0 var(--text);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        
+        .chatbot-window.active {
+            display: flex;
+        }
+        
+        .chatbot-header {
+            background: var(--green);
+            padding: 1rem;
+            border-bottom: 3px solid var(--text);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chatbot-title {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+        }
+        
+        .chatbot-close {
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .chatbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .chat-message {
+            padding: 1rem;
+            border: 2px solid var(--text);
+            max-width: 80%;
+            font-size: 0.9rem;
+        }
+        
+        .chat-message.bot {
+            background: var(--bg);
+            align-self: flex-start;
+        }
+        
+        .chat-message.user {
+            background: var(--green);
+            align-self: flex-end;
+        }
+        
+        .chatbot-input-area {
+            display: flex;
+            border-top: 3px solid var(--text);
+        }
+        
+        .chatbot-input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .chatbot-send {
+            padding: 1rem 1.5rem;
+            background: var(--green);
+            border: none;
+            border-left: 3px solid var(--text);
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+        }
+        
+        .typing-indicator {
+            display: none;
+            padding: 1rem;
+            border: 2px solid var(--text);
+            max-width: 80%;
+            background: var(--bg);
+        }
+        
+        .typing-indicator.active {
+            display: block;
+        }
+        
+        .typing-dots span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            margin-right: 4px;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+        
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--green);
+            padding: 1.5rem 2rem;
+            border: 3px solid var(--text);
+            box-shadow: 6px 6px 0 var(--text);
+            font-family: 'Space Mono', monospace;
+            z-index: 2000;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.5s;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: var(--white);
+            padding: 3rem 5%;
+            border-top: 5px solid var(--green);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-section h4 {
+            font-family: 'Space Mono', monospace;
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--green);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            font-family: 'Space Mono', monospace;
+            color: var(--green);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chatbot-window {
+                width: 90%;
+                right: 5%;
+                bottom: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+    
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        ✓ Message sent successfully!
+    </div>
+    
+    <header>
+        <div class="logo">heybuddydesign</div>
+        <nav>
+            <a href="#services">services</a>
+            <a href="#contact">contact</a>
+            <a href="#booking">book a call</a>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1>
+            Your <span class="highlight">Digital</span><br>
+            <span class="yellow-highlight">Buddy</span> in the Cloud
+        </h1>
+        <p>We build websites, host dreams, and deploy AI agents that actually work. Welcome to the future, retro style.</p>
+        <a href="#contact" class="cta-button">Get Started</a>
+    </section>
+    
+    <section id="services" class="services">
+        <h2 class="section-title">what we do</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>Web Design</h3>
+                <p>Clean, modern websites that don't suck. We make pixels dance and users happy.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">☁️</div>
+                <h3>Web Hosting</h3>
+                <p>Lightning-fast hosting with 99.9% uptime. Your site deserves a cozy home in the cloud.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>AI Agents</h3>
+                <p>Intelligent bots that handle customer service, automate tasks, and make your life easier.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>AutoBot Systems</h3>
+                <p>Automation solutions that work while you sleep. Set it, forget it, profit.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>AI Design Tools</h3>
+                <p>Cutting-edge AI-powered design tools for faster, smarter creative workflows.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h3>SEO & Analytics</h3>
+                <p>Get found on Google. Track everything. Optimize relentlessly. Grow exponentially.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="features" class="features">
+        <h2 class="section-title">why choose us</h2>
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-number">01</div>
+                <h3>Fast Delivery</h3>
+                <p>We ship in days, not months. Your project gets priority treatment.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-number">02</div>
+                <h3>AI-Powered</h3>
+                <p>We leverage cutting-edge AI to build smarter, faster solutions.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-number">03</div>
+                <h3>24/7 Support</h3>
+                <p>Human support when you need it. AI assistance when you don't.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-number">04</div>
+                <h3>Fair Pricing</h3>
+                <p>No hidden fees. No surprises. Just honest, transparent pricing.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Form Section -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">get in touch</h2>
+        <div class="contact-container">
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>phone</label>
+                        <input type="tel" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label>service</label>
+                        <select id="service" required>
+                            <option value="">Select a service...</option>
+                            <option value="web-design">Web Design</option>
+                            <option value="hosting">Web Hosting</option>
+                            <option value="ai-agents">AI Agents</option>
+                            <option value="autobot">AutoBot Systems</option>
+                            <option value="ecommerce">E-commerce</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>project details</label>
+                    <textarea id="message" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Booking Section -->
+    <section id="booking" class="booking-section">
+        <h2 class="section-title">book a consultation</h2>
+        <div class="booking-container">
+            <div class="booking-grid">
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" onclick="changeMonth(-1)">←</button>
+                        <span id="currentMonth">January 2025</span>
+                        <button class="calendar-nav" onclick="changeMonth(1)">→</button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar days will be generated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="time-slots">
+                    <h3 style="font-family: 'Space Mono', monospace; margin-bottom: 1.5rem;">Available Times</h3>
+                    <div id="timeSlots">
+                        <div class="time-slot" onclick="selectTime(this)">09:00 AM</div>
+                        <div class="time-slot" onclick="selectTime(this)">10:00 AM</div>
+                        <div class="time-slot" onclick="selectTime(this)">11:00 AM</div>
+                        <div class="time-slot unavailable">12:00 PM</div>
+                        <div class="time-slot" onclick="selectTime(this)">01:00 PM</div>
+                        <div class="time-slot" onclick="selectTime(this)">02:00 PM</div>
+                        <div class="time-slot" onclick="selectTime(this)">03:00 PM</div>
+                        <div class="time-slot unavailable">04:00 PM</div>
+                    </div>
+                    <button class="cta-button" style="width: 100%; margin-top: 2rem;" onclick="confirmBooking()">Confirm Booking</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- AI Chatbot -->
+    <div class="chatbot-toggle" onclick="toggleChat()">
+        💬
+    </div>
+    
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <span class="chatbot-title">BuddyBot AI</span>
+            <span class="chatbot-close" onclick="toggleChat()">×</span>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="chat-message bot">
+                Hey! 👋 I'm BuddyBot, your AI assistant. How can I help you today?
+            </div>
+        </div>
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dots">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" class="chatbot-input" id="chatInput" placeholder="Type your message..." onkeypress="if(event.key === 'Enter') sendMessage()">
+            <button class="chatbot-send" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>heybuddydesign</h4>
+                <p>Your friendly neighborhood web & AI agency. Building the future, one pixel at a time.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Web Design</a></li>
+                    <li><a href="#">Hosting</a></li>
+                    <li><a href="#">AI Agents</a></li>
+                    <li><a href="#">AutoBots</a></li>
+                    <li><a href="#">E-commerce</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Portfolio</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">Discord</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 heybuddydesign. All rights reserved. | Made with ☕ and 💚
+        </div>
+    </footer>
+    
+    <script>
+        // Calendar functionality
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+        
+        function generateCalendar() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            calendarGrid.innerHTML = '';
+            
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Update month display
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                              'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+            
+            // Add day headers
+            const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+            days.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.textContent = day;
+                dayHeader.style.fontWeight = '700';
+                dayHeader.style.textAlign = 'center';
+                dayHeader.style.padding = '0.5rem';
+                calendarGrid.appendChild(dayHeader);
+            });
+            
+            // Get first day of month and total days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+            
+            // Add empty cells for days before month starts
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day disabled';
+                calendarGrid.appendChild(emptyDay);
+            }
+            
+            // Add days of month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                dayCell.textContent = day;
+                
+                const cellDate = new Date(year, month, day);
+                
+                // Disable past dates
+                if (cellDate < today.setHours(0, 0, 0, 0)) {
+                    dayCell.classList.add('disabled');
+                } else {
+                    dayCell.onclick = () => selectDate(dayCell, cellDate);
+                }
+                
+                calendarGrid.appendChild(dayCell);
+            }
+        }
+        
+        function selectDate(cell, date) {
+            document.querySelectorAll('.calendar-day').forEach(day => {
+                day.classList.remove('selected');
+            });
+            cell.classList.add('selected');
+            selectedDate = date;
+        }
+        
+        function changeMonth(direction) {
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            generateCalendar();
+        }
+        
+        function selectTime(timeSlot) {
+            if (timeSlot.classList.contains('unavailable')) return;
+            
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            timeSlot.classList.add('selected');
+            selectedTime = timeSlot.textContent;
+        }
+        
+        function confirmBooking() {
+            if (!selectedDate || !selectedTime) {
+                alert('Please select both a date and time!');
+                return;
+            }
+            
+            const dateStr = selectedDate.toLocaleDateString();
+            alert(`✓ Booking confirmed for ${dateStr} at ${selectedTime}!\n\nWe'll send you a confirmation email shortly.`);
+            
+            // Reset selections
+            selectedDate = null;
+            selectedTime = null;
+            generateCalendar();
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+        }
+        
+        // Contact Form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                service: document.getElementById('service').value,
+                message: document.getElementById('message').value
+            };
+            
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            
+            // Log form data (in production, send to backend)
+            console.log('Form submitted:', formData);
+            
+            // Reset form
+            this.reset();
+            
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+            
+            // Here you would typically send the data to your backend:
+            // fetch('/api/contact', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(formData)
+            // });
+        });
+        
+        // Chatbot functionality
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatbotWindow');
+            chatWindow.classList.toggle('active');
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Show typing indicator
+            const typingIndicator = document.getElementById('typingIndicator');
+            typingIndicator.classList.add('active');
+            
+            // Simulate AI response
+            setTimeout(() => {
+                typingIndicator.classList.remove('active');
+                
+                const responses = {
+                    'pricing': 'Our pricing starts at $999 for basic websites and goes up based on features. Want a custom quote?',
+                    'services': 'We offer web design, hosting, AI agents, automation, SEO, and more! Which one interests you?',
+                    'contact': 'You can reach us at hello@heybuddydesign.com or use the contact form above!',
+                    'timeline': 'Most projects take 2-4 weeks. Rush jobs can be done in 1 week with priority service!',
+                    'ai': 'Yes! We specialize in AI chatbots, automation, and intelligent agents. Want to see a demo?',
+                    'hosting': 'We offer managed hosting with 99.9% uptime, SSL, backups, and 24/7 support starting at $29/month.'
+                };
+                
+                let response = 'Great question! I can help you with information about our services, pricing, timelines, or anything else. What would you like to know?';
+                
+                // Check for keywords
+                const lowerMessage = message.toLowerCase();
+                for (const [keyword, reply] of Object.entries(responses)) {
+                    if (lowerMessage.includes(keyword)) {
+                        response = reply;
+                        break;
+                    }
+                }
+                
+                // Special greetings
+                if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                    response = 'Hey there! 👋 How can I help you today? Feel free to ask about our services, pricing, or anything else!';
+                }
+                
+                addMessage(response, 'bot');
+            }, 1500);
+        }
+        
+        function addMessage(text, sender) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            messageDiv.textContent = text;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        // Initialize calendar on page load
+        generateCalendar();
+        
+        // Add some example AI responses to chatbot on page load
+        setTimeout(() => {
+            const quickQuestions = document.createElement('div');
+            quickQuestions.className = 'chat-message bot';
+            quickQuestions.innerHTML = 'Quick questions I can answer:<br>• Pricing<br>• Services<br>• Timeline<br>• AI Solutions<br>• Hosting';
+            document.getElementById('chatMessages').appendChild(quickQuestions);
+        }, 2000);
+    </script>
+</body>
+</html>

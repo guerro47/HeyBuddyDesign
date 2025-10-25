@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[user]
+	email = buddy@heybuddydesign.com
+	name = HeyBuddyDesign
+[remote "origin"]
+	url = https://github.com/guerro47/HeyBuddyDesign.git
+	fetch = +refs/heads/*:refs/remotes/origin/*

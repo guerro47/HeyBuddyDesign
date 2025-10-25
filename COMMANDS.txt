@@ -1,0 +1,62 @@
+═══════════════════════════════════════════════════════════
+   🚀 HeyBuddyDesign - Deployment Commands Cheat Sheet 🚀
+═══════════════════════════════════════════════════════════
+
+📤 PUSH TO GITHUB
+─────────────────────────────────────────────────────────
+
+cd heybuddydesign-project
+git push -u origin main
+
+(You'll need to authenticate - see GITHUB_VERCEL_DEPLOY.md)
+
+═══════════════════════════════════════════════════════════
+
+🚀 DEPLOY TO VERCEL
+─────────────────────────────────────────────────────────
+
+Option 1: Web Interface (Easiest)
+→ Go to: https://vercel.com/new
+→ Import: guerro47/HeyBuddyDesign
+→ Click: Deploy
+→ Done! 🎉
+
+Option 2: CLI
+npm install -g vercel
+vercel login
+vercel --prod
+
+═══════════════════════════════════════════════════════════
+
+📁 YOUR REPOSITORY
+─────────────────────────────────────────────────────────
+
+https://github.com/guerro47/HeyBuddyDesign.git
+
+═══════════════════════════════════════════════════════════
+
+🔄 UPDATE YOUR SITE LATER
+─────────────────────────────────────────────────────────
+
+git add .
+git commit -m "Your changes"
+git push
+
+(Vercel auto-deploys! ✨)
+
+═══════════════════════════════════════════════════════════
+
+📚 NEED MORE HELP?
+─────────────────────────────────────────────────────────
+
+• GITHUB_VERCEL_DEPLOY.md - Full deployment guide
+• BACKEND_INTEGRATION_GUIDE.md - Connect services
+• QUICK_REFERENCE.txt - All commands
+• VERCEL_DEPLOYMENT_GUIDE.md - Vercel details
+
+═══════════════════════════════════════════════════════════
+
+✨ YOUR SITE WILL BE LIVE AT:
+https://heybuddydesign.vercel.app
+
+═══════════════════════════════════════════════════════════

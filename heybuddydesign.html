@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>heybuddydesign - Your Digital Buddy</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --white: #ffffff;
+            --green: #00ff88;
+            --dark-green: #00cc6d;
+            --yellow: #ffeb3b;
+            --bg: #fafafa;
+            --text: #1a1a1a;
+            --border: #e0e0e0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Retro Grid Background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        /* Header */
+        header {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--green);
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            text-transform: lowercase;
+            position: relative;
+        }
+        
+        .logo::before {
+            content: '>';
+            color: var(--green);
+            margin-right: 8px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            font-family: 'Space Mono', monospace;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--green);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 8rem 5% 4rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+        
+        .hero .highlight {
+            background: var(--green);
+            padding: 0.2rem 0.5rem;
+            display: inline-block;
+            transform: rotate(-1deg);
+        }
+        
+        .hero .yellow-highlight {
+            background: var(--yellow);
+            padding: 0.2rem 0.5rem;
+            display: inline-block;
+            transform: rotate(1deg);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            color: #666;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--green);
+            color: var(--text);
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            border: 3px solid var(--text);
+            box-shadow: 6px 6px 0 var(--text);
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            box-shadow: 8px 8px 0 var(--text);
+            transform: translate(-2px, -2px);
+        }
+        
+        .cta-button:active {
+            box-shadow: 3px 3px 0 var(--text);
+            transform: translate(3px, 3px);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 6rem 5%;
+            background: var(--bg);
+        }
+        
+        .section-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::before {
+            content: '// ';
+            color: var(--green);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border: 2px solid var(--text);
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: var(--yellow);
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 0 var(--green);
+        }
+        
+        .service-card:hover::before {
+            background: var(--green);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card h3 {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg);
+            border: 2px dashed var(--green);
+            transition: all 0.3s;
+        }
+        
+        .feature:hover {
+            background: var(--green);
+            border-style: solid;
+        }
+        
+        .feature-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--green);
+            transition: all 0.3s;
+        }
+        
+        .feature:hover .feature-number {
+            color: var(--white);
+        }
+        
+        .feature h3 {
+            font-family: 'Space Mono', monospace;
+            margin: 1rem 0;
+        }
+        
+        /* Terminal Section */
+        .terminal-section {
+            padding: 6rem 5%;
+            background: var(--text);
+            color: var(--green);
+        }
+        
+        .terminal {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #000;
+            border: 3px solid var(--green);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            font-family: 'Space Mono', monospace;
+        }
+        
+        .terminal-header {
+            background: var(--green);
+            color: #000;
+            padding: 0.8rem 1.5rem;
+            font-weight: 700;
+        }
+        
+        .terminal-body {
+            padding: 2rem;
+            line-height: 2;
+        }
+        
+        .terminal-line {
+            margin-bottom: 0.5rem;
+        }
+        
+        .terminal-line::before {
+            content: '$ ';
+            color: var(--yellow);
+        }
+        
+        .terminal-output {
+            color: var(--green);
+            padding-left: 1rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 5%;
+            text-align: center;
+            background: var(--yellow);
+        }
+        
+        .cta-section h2 {
+            font-family: 'Space Mono', monospace;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: var(--white);
+            padding: 3rem 5%;
+            border-top: 5px solid var(--green);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-section h4 {
+            font-family: 'Space Mono', monospace;
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--green);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            font-family: 'Space Mono', monospace;
+            color: var(--green);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+    
+    <header>
+        <div class="logo">heybuddydesign</div>
+        <nav>
+            <a href="#services">services</a>
+            <a href="#features">why us</a>
+            <a href="#contact">contact</a>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1>
+            Your <span class="highlight">Digital</span><br>
+            <span class="yellow-highlight">Buddy</span> in the Cloud
+        </h1>
+        <p>We build websites, host dreams, and deploy AI agents that actually work. Welcome to the future, retro style.</p>
+        <a href="#contact" class="cta-button">Get Started</a>
+    </section>
+    
+    <section id="services" class="services">
+        <h2 class="section-title">what we do</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>Web Design</h3>
+                <p>Clean, modern websites that don't suck. We make pixels dance and users happy.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">☁️</div>
+                <h3>Web Hosting</h3>
+                <p>Lightning-fast hosting with 99.9% uptime. Your site deserves a cozy home in the cloud.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>AI Agents</h3>
+                <p>Intelligent bots that handle customer service, automate tasks, and make your life easier.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>AutoBot Systems</h3>
+                <p>Automation solutions that work while you sleep. Set it, forget it, profit.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>AI Design Tools</h3>
+                <p>Cutting-edge AI-powered design tools for faster, smarter creative workflows.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h3>SEO & Analytics</h3>
+                <p>Get found on Google. Track everything. Optimize relentlessly. Grow exponentially.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🛡️</div>
+                <h3>Security & SSL</h3>
+                <p>Fort Knox-level security. SSL certificates, backups, and peace of mind included.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📧</div>
+                <h3>Email Marketing</h3>
+                <p>AI-powered email campaigns that convert. Reach inboxes, not spam folders.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🌍</div>
+                <h3>Domain Registration</h3>
+                <p>Claim your corner of the internet. Premium domains at prices that make sense.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">💬</div>
+                <h3>AI Chatbots</h3>
+                <p>Smart conversational AI that handles support 24/7. Your customers will think it's human.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🛒</div>
+                <h3>E-commerce</h3>
+                <p>Full-stack online stores with payment processing, inventory, and analytics built in.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🔧</div>
+                <h3>Maintenance</h3>
+                <p>We keep your site running smooth. Updates, fixes, and optimizations on autopilot.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="features" class="features">
+        <h2 class="section-title">why choose us</h2>
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-number">01</div>
+                <h3>Fast Delivery</h3>
+                <p>We ship in days, not months. Your project gets priority treatment.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-number">02</div>
+                <h3>AI-Powered</h3>
+                <p>We leverage cutting-edge AI to build smarter, faster solutions.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-number">03</div>
+                <h3>24/7 Support</h3>
+                <p>Human support when you need it. AI assistance when you don't.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-number">04</div>
+                <h3>Fair Pricing</h3>
+                <p>No hidden fees. No surprises. Just honest, transparent pricing.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="terminal-section">
+        <div class="terminal">
+            <div class="terminal-header">heybuddy@terminal:~</div>
+            <div class="terminal-body">
+                <div class="terminal-line">./deploy-awesome.sh</div>
+                <div class="terminal-output">> Initializing heybuddydesign services...</div>
+                <div class="terminal-output">> Loading AI agents... ✓</div>
+                <div class="terminal-output">> Spinning up hosting environment... ✓</div>
+                <div class="terminal-output">> Deploying your website... ✓</div>
+                <div class="terminal-output">> Optimizing performance... ✓</div>
+                <div class="terminal-output">> Success! Your digital presence is now live.</div>
+                <div class="terminal-line">uptime --status</div>
+                <div class="terminal-output">> 99.9% uptime | 0ms latency | All systems operational</div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="cta-section">
+        <h2>Ready to Build Something Cool?</h2>
+        <p>Let's chat about your project. No commitment, just vibes.</p>
+        <a href="mailto:hello@heybuddydesign.com" class="cta-button">Say Hello</a>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>heybuddydesign</h4>
+                <p>Your friendly neighborhood web & AI agency. Building the future, one pixel at a time.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Web Design</a></li>
+                    <li><a href="#">Hosting</a></li>
+                    <li><a href="#">AI Agents</a></li>
+                    <li><a href="#">AutoBots</a></li>
+                    <li><a href="#">E-commerce</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Portfolio</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">Discord</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 heybuddydesign. All rights reserved. | Made with ☕ and 💚
+        </div>
+    </footer>
+</body>
+</html>
