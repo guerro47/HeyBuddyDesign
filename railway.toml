@@ -11,6 +11,10 @@ healthcheckTimeout = 300
 
 # n8n Environment Variables
 [[deploy.environmentVariables]]
+name = "N8N_PORT"
+value = "${{PORT}}"
+
+[[deploy.environmentVariables]]
 name = "N8N_PROTOCOL"
 value = "https"
 
