@@ -1487,7 +1487,7 @@
         }
         
         // Contact Form
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             // Get form data
@@ -1518,12 +1518,29 @@
                 successMessage.classList.remove('show');
             }, 3000);
             
-            // Here you would typically send the data to your backend:
-            // fetch('/api/contact', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(formData)
-            // });
+            // Send to n8n webhook
+            try {
+                const response = await fetch('https://bertha-unsovereign-clarice.ngrok-free.dev/webhook/0f6bd949-4e9a-4f4c-b9b1-b3cff418804d', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    // Show success message
+                    successMessage.classList.add('show');
+                    this.reset();
+                } else {
+                    alert('Something went wrong. Please try again or email us at info@heybuddydesign.com');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong. Please email us at info@heybuddydesign.com');
+            }
         });
         
         // Chatbot functionality
